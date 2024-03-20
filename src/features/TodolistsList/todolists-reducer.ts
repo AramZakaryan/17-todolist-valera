@@ -30,10 +30,10 @@ const slice = createSlice({
     },
     changeTodolistEntityStatus(
       state,
-      action: PayloadAction<{ id: string; status: RequestStatusType }>,
+      action: PayloadAction<{ id: string; entityStatus: RequestStatusType }>,
     ) {
       const todolistId = state.findIndex((tl) => tl.id === action.payload.id)
-      if (todolistId !== -1) state[todolistId].entityStatus = action.payload.status
+      if (todolistId !== -1) state[todolistId].entityStatus = action.payload.entityStatus
     },
     setTodolists(state, action: PayloadAction<{ todolists: Array<TodolistType> }>) {
       action.payload.todolists.forEach((tl) =>
@@ -71,7 +71,7 @@ export const removeTodolistTC = (id: string): AppThunk => {
     //изменим глобальный статус приложения, чтобы вверху полоса побежала
     dispatch(appActions.setAppStatus({ status: "loading" }))
     //изменим статус конкретного тудулиста, чтобы он мог задизеблить что надо
-    dispatch(todolistsActions.changeTodolistEntityStatus({ id, status: "loading" }))
+    dispatch(todolistsActions.changeTodolistEntityStatus({ id, entityStatus: "loading" }))
     todolistsAPI.deleteTodolist(id).then((res) => {
       dispatch(todolistsActions.removeTodolist({ id }))
       //скажем глобально приложению, что асинхронная операция завершена

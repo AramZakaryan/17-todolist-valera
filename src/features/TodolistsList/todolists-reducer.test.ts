@@ -96,7 +96,7 @@ test("correct entity status of todolist should be changed", () => {
 
   const action = todolistsActions.changeTodolistEntityStatus({
     id: todolistId2,
-    status: newStatus,
+    entityStatus: newStatus,
   })
 
   const endState = todolistsReducer(startState, action)
