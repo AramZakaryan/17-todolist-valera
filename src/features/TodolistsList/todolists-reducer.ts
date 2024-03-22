@@ -9,8 +9,8 @@ const slice = createSlice({
   initialState: [] as TodolistDomainType[],
   reducers: {
     removeTodolist(state, action: PayloadAction<{ id: string }>) {
-      const todolistId = state.findIndex((tl) => tl.id === action.payload.id)
-      if (todolistId !== -1) state.splice(todolistId, 1)
+      const todolistInd = state.findIndex((tl) => tl.id === action.payload.id)
+      if (todolistInd !== -1) state.splice(todolistInd, 1)
     },
     addTodolist(state, action: PayloadAction<{ todolist: TodolistType }>) {
       const todolist: TodolistDomainType = {
@@ -21,19 +21,19 @@ const slice = createSlice({
       state.unshift(todolist)
     },
     changeTodolistTitle(state, action: PayloadAction<{ id: string; title: string }>) {
-      const todolistId = state.findIndex((tl) => tl.id === action.payload.id)
-      if (todolistId !== -1) state[todolistId].title = action.payload.title
+      const todolistInd = state.findIndex((tl) => tl.id === action.payload.id)
+      if (todolistInd !== -1) state[todolistInd].title = action.payload.title
     },
     changeTodolistFilter(state, action: PayloadAction<{ id: string; filter: FilterValuesType }>) {
-      const todolistId = state.findIndex((tl) => tl.id === action.payload.id)
-      if (todolistId !== -1) state[todolistId].filter = action.payload.filter
+      const todolistInd = state.findIndex((tl) => tl.id === action.payload.id)
+      if (todolistInd !== -1) state[todolistInd].filter = action.payload.filter
     },
     changeTodolistEntityStatus(
       state,
       action: PayloadAction<{ id: string; entityStatus: RequestStatusType }>,
     ) {
-      const todolistId = state.findIndex((tl) => tl.id === action.payload.id)
-      if (todolistId !== -1) state[todolistId].entityStatus = action.payload.entityStatus
+      const todolistInd = state.findIndex((tl) => tl.id === action.payload.id)
+      if (todolistInd !== -1) state[todolistInd].entityStatus = action.payload.entityStatus
     },
     setTodolists(state, action: PayloadAction<{ todolists: Array<TodolistType> }>) {
       action.payload.todolists.forEach((tl) =>
@@ -43,6 +43,9 @@ const slice = createSlice({
           entityStatus: "idle",
         } as TodolistDomainType),
       )
+    },
+    clearState(state) {
+      return []
     },
   },
 })
